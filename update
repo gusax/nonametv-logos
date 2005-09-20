@@ -1,0 +1,55 @@
+#!/bin/sh
+
+svn update
+
+mkdir -p build build/44x4 build/16x16
+
+cd build
+rsync -ptgo --delete ../100x100/*.png .
+
+for f in *.png
+do
+  convert -resize 44x44 $f ../44x44/$f.new
+  if diff -q ../44x44/$f ../44x44/$f.new > /dev/null
+  then
+    # Same
+    rm ../44x44/$f.new
+  else
+    # Different
+    mv ../44x44/$f.new ../44x44/$f
+  fi
+
+  convert -resize 16x16 $f ../16x16/$f.new
+  if diff -q ../16x16/$f ../16x16/$f.new > /dev/null
+  then
+    # Same
+    rm ../16x16/$f.new
+  else
+    # Different
+    mv ../16x16/$f.new ../16x16/$f
+  fi
+done
+
+cd ../../44x44
+
+for f in *.png
+do
+  if diff -q $f ../build/44x44/$f > /dev/null
+  then
+    cp -a $f ../build/44x44/$f
+  fi
+done
+
+cd ../16x16
+for f in *.png
+do
+  if diff -q $f ../build/16x16/$f > /dev/null
+  then
+    cp -a $f ../build/16x16/$f
+  fi
+done
+
+cd ../..
+
+sitecopy --update nonametv-logos
+
