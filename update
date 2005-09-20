@@ -7,6 +7,9 @@ mkdir -p build build/44x4 build/16x16
 cd build
 rsync -ptgo --delete ../100x100/*.png .
 
+# Generate smaller versions of all 100x100-images
+# Only keep the smaller version if it is different from
+# the small version that already exists.
 for f in *.png
 do
   convert -resize 44x44 $f ../44x44/$f.new
@@ -30,7 +33,7 @@ do
   fi
 done
 
-cd ../../44x44
+cd ../44x44
 
 for f in *.png
 do
