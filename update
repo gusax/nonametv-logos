@@ -1,58 +1,63 @@
 #!/bin/sh
 
+HOME=/var/local/nonametv
+R=/var/local/nonametv/nonametv-logos
+
 svn update
 
-mkdir -p build build/44x4 build/16x16
+mkdir -p $R/build $R/build/44x4 $R/build/16x16
 
-cd build
-rsync -ptgo --delete ../100x100/*.png .
+cd $R/build
+rsync -ptgo --delete $R/100x100/*.png .
 
 # Generate smaller versions of all 100x100-images
 # Only keep the smaller version if it is different from
 # the small version that already exists.
 for f in *.png
 do
-  convert -resize 44x44 $f ../44x44/$f.new
-  if diff -q ../44x44/$f ../44x44/$f.new > /dev/null
+  convert -resize 44x44 $f 44x44/$f.new
+  if diff -q 44x44/$f 44x44/$f.new > /dev/null
   then
     # Same
-    rm ../44x44/$f.new
+    rm 44x44/$f.new
   else
     # Different
-    mv ../44x44/$f.new ../44x44/$f
+    mv 44x44/$f.new 44x44/$f
   fi
 
-  convert -resize 16x16 $f ../16x16/$f.new
-  if diff -q ../16x16/$f ../16x16/$f.new > /dev/null
+  convert -resize 16x16 $f 16x16/$f.new
+  if diff -q 16x16/$f 16x16/$f.new > /dev/null
   then
     # Same
-    rm ../16x16/$f.new
+    rm 16x16/$f.new
   else
     # Different
-    mv ../16x16/$f.new ../16x16/$f
+    mv 16x16/$f.new 16x16/$f
   fi
 done
 
-cd ../44x44
+cd $R/44x44
 
-for f in *.png
+for f in `ls -1 *.png`
 do
-  if diff -q $f ../build/44x44/$f > /dev/null
+  echo XX
+  if diff -q $f $R/build/44x44/$f > /dev/null
   then
-    cp -a $f ../build/44x44/$f
+    cp -a $f $R/build/44x44/$f
   fi
 done
 
-cd ../16x16
-for f in *.png
+cd $R/16x16
+for f in `ls -1 *.png`
 do
-  if diff -q $f ../build/16x16/$f > /dev/null
+  if diff -q $f $R/build/16x16/$f > /dev/null
   then
-    cp -a $f ../build/16x16/$f
+    cp -a $f $R/build/16x16/$f
   fi
 done
 
-cd ../..
+cd $R
 
-sitecopy --update nonametv-logos
+sitecopy -r /var/local/nonametv/sitecopyrc --update logos.swedb.se
+
 
