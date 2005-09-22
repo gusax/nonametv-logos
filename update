@@ -1,11 +1,15 @@
 #!/bin/sh
 
 HOME=/var/local/nonametv
+export HOME
+
 R=/var/local/nonametv/nonametv-logos
 
+cd $R
 svn update
 
 mkdir -p $R/build $R/build/44x4 $R/build/16x16
+mkdir -p $R/upload
 
 cd $R/build
 rsync -ptgo --delete $R/100x100/*.png .
@@ -15,48 +19,16 @@ rsync -ptgo --delete $R/100x100/*.png .
 # the small version that already exists.
 for f in *.png
 do
-  convert -resize 44x44 $f 44x44/$f.new
-  if diff -q 44x44/$f 44x44/$f.new > /dev/null
-  then
-    # Same
-    rm 44x44/$f.new
-  else
-    # Different
-    mv 44x44/$f.new 44x44/$f
-  fi
-
-  convert -resize 16x16 $f 16x16/$f.new
-  if diff -q 16x16/$f 16x16/$f.new > /dev/null
-  then
-    # Same
-    rm 16x16/$f.new
-  else
-    # Different
-    mv 16x16/$f.new 16x16/$f
-  fi
-done
-
-cd $R/44x44
-
-for f in `ls -1 *.png`
-do
-  echo XX
-  if diff -q $f $R/build/44x44/$f > /dev/null
-  then
-    cp -a $f $R/build/44x44/$f
-  fi
-done
-
-cd $R/16x16
-for f in `ls -1 *.png`
-do
-  if diff -q $f $R/build/16x16/$f > /dev/null
-  then
-    cp -a $f $R/build/16x16/$f
-  fi
+  convert -resize 44x44 $f 44x44/$f
+  convert -resize 16x16 $f 16x16/$f
 done
 
 cd $R
+
+cp 44x44/*.png build/44x44/
+cp 16x16/*.png build/16x16/
+
+rsync -c --delete -r build/ upload/
 
 sitecopy -r /var/local/nonametv/sitecopyrc --update logos.swedb.se
 
