@@ -1,14 +1,14 @@
 The logos are stored in the directory 100x100/. Smaller versions of the logos
-are created automatically from the files in 100x100/. If you want to override
-the automatically scaled versions, you can put files in 44x44/ and 16x16/,
-but this is not necessary unless you have edited the smaller versions
-manually.
+are created automatically from the files in 100x100/. 
 
 The original/ catalog is used to store the originals for the logos for
 future reference. This catalog is not used in the update process.
 
-After updating a logo, send an email to mattias and ask him to
-push the updated version to tv.swedb.se.
+After updating a logo, open a web-browser to the url
+
+https://sol.holmlund.se/cgi-bin/update_logos.cgi
+
+This will upload the new logos to tv.swedb.se and tvsajten.com.
 
 Mattias Holmlund
-2007-04-10
+2007-04-12
