@@ -8,15 +8,14 @@ R=/var/local/nonametv/nonametv-logos
 cd $R
 svn update
 
-mkdir -p $R/build $R/build/44x4 $R/build/16x16
+rm -rf build
+mkdir -p $R/build $R/build/44x44 $R/build/16x16
 mkdir -p $R/upload
 
 cd $R/build
-rsync -ptgo --delete $R/100x100/*.png .
+cp -a $R/100x100/*.png .
 
 # Generate smaller versions of all 100x100-images
-# Only keep the smaller version if it is different from
-# the small version that already exists.
 for f in *.png
 do
   convert -resize 44x44 $f 44x44/$f
@@ -25,11 +24,15 @@ done
 
 cd $R
 
+# Override the smaller images with any hand-crafted versions:
 cp 44x44/*.png build/44x44/
 cp 16x16/*.png build/16x16/
 
 rsync -c --delete -r build/ upload/
 
+# sitecopy -r /var/local/nonametv/sitecopyrc --list logos.swedb.se
 sitecopy -r /var/local/nonametv/sitecopyrc --update logos.swedb.se
+rsync -av $R/upload/ acheron.geijersson.com:public_html/chanlogos/
+rsync -av $R/upload/ fiorina161.geijersson.com:public_html/chanlogos/
 
 
