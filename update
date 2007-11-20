@@ -32,7 +32,7 @@ rsync -c --delete -r build/ upload/
 
 # sitecopy -r /var/local/nonametv/sitecopyrc --list logos.swedb.se
 sitecopy -r /var/local/nonametv/sitecopyrc --update logos.swedb.se
-rsync -av $R/upload/ acheron.geijersson.com:public_html/chanlogos/
-rsync -av $R/upload/ fiorina161.geijersson.com:public_html/chanlogos/
+rsync -av --delete $R/upload/ acheron.geijersson.com:public_html/chanlogos/
+rsync -av --delete $R/upload/ fiorina161.geijersson.com:public_html/chanlogos/
 
 
