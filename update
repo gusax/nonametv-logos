@@ -6,7 +6,7 @@ export HOME
 R=/var/local/nonametv/nonametv-logos
 
 cd $R
-svn update
+git pull
 
 rm -rf build
 mkdir -p $R/build $R/build/44x44 $R/build/16x16
