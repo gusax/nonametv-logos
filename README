@@ -4,12 +4,7 @@ are created automatically from the files in 100x100/.
 The original/ catalog is used to store the originals for the logos for
 future reference. This catalog is not used in the update process.
 
-After updating a logo, open a web-browser to the url
+The logos are used on tv.swedb.se and tvsajten.com.
 
-https://sol.holmlund.se/cgi-bin/update_logos.cgi
-
-This will upload the new logos to tv.swedb.se and tvsajten.com.
-
-Mattias Holmlund
-2007-04-12
-
+Original author: Mattias Holmlund 2007-04-12
+Current maintainer: Gustav Axelsson 2010-02-01
