@@ -5,10 +5,10 @@ FILES100 := $(patsubst 100x100/%,build/%,$(wildcard 100x100/*.png))
 FILES44 := $(patsubst 100x100/%,build/44x44/%,$(wildcard 100x100/*.png))
 FILES16 := $(patsubst 100x100/%,build/16x16/%,$(wildcard 100x100/*.png))
 
-all: updatesvn dobuild upload/last_updated
+all: dobuild upload/last_updated
 
-updatesvn:
-	svn update
+#updatesvn:
+#	svn update
 
 dobuild: build buildfiles
 
@@ -33,7 +33,5 @@ build/last_updated:
 upload/last_updated: build/last_updated
 	mkdir -p upload
 	rsync -c --delete -r build/ upload/
-	HOME=/var/local/nonametv sitecopy -r /var/local/nonametv/sitecopyrc --update logos.swedb.se
-	rsync -av upload/ acheron.geijersson.com:public_html/chanlogos/
-	rsync -av upload/ fiorina161.geijersson.com:public_html/chanlogos/
+	rsync -rsh=ssh -av upload/ tvzon:/var/www/xmltv/chanlogos/
 	cp build/last_updated upload/last_updated
