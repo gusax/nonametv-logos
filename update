@@ -6,7 +6,7 @@ export HOME
 R=/home/beatx/github/nonametv-logos
 
 cd $R
-git pull
+git pull origin
 
 rm -rf build
 mkdir -p $R/build $R/build/44x44 $R/build/16x16
