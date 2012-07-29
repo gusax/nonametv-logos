@@ -3,7 +3,7 @@
 HOME=/var/local/nonametv
 export HOME
 
-R=/home/beatx/github/nonametv-logos
+R=/home/beatx/projects/channel-logos/
 
 cd $R
 git pull origin
@@ -32,7 +32,8 @@ rsync -c --delete -r build/ upload/
 
 # sitecopy -r /var/local/nonametv/sitecopyrc --list logos.swedb.se
 # sitecopy -r /var/local/nonametv/sitecopyrc --update logos.swedb.se
-rsync -rsh=ssh -av --delete $R/upload/ tvzon:/var/www/xmltv/chanlogos/
-rsync -rsh=ssh -av --delete $R/upload/ tvzon:/home/beatx/projects/tvtabla/4.0/htdocs/gfx/chanlogos
-
+#rsync -rsh=ssh -av --delete $R/upload/ tvzon:/var/www/xmltv/chanlogos/
+#rsync -rsh=ssh -av --delete $R/upload/ tvzon:/home/beatx/projects/tvtabla/4.0/htdocs/gfx/chanlogos
+rsync -rsh=ssh -av --delete $R/upload/ /var/www/xmltv/chanlogos/
+rsync -rsh=ssh -av --delete $R/upload/ /home/beatx/projects/tvtabla/htdocs/gfx/chanlogos
 
