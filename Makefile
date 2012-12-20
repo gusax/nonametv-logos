@@ -3,6 +3,7 @@
 
 FILES100 := $(patsubst 100x100/%,build/%,$(wildcard 100x100/*.png))
 FILES44 := $(patsubst 100x100/%,build/44x44/%,$(wildcard 100x100/*.png))
+FILES32 := $(patsubst 100x100/%,build/32x32/%,$(wildcard 100x100/*.png))
 FILES16 := $(patsubst 100x100/%,build/16x16/%,$(wildcard 100x100/*.png))
 
 all: dobuild upload/last_updated
@@ -13,9 +14,9 @@ all: dobuild upload/last_updated
 dobuild: build buildfiles
 
 build:
-	mkdir -p build build/44x44 build/16x16
+	mkdir -p build build/44x44 build/16x16 build/32x32
 
-buildfiles: $(FILES100) $(FILES44) $(FILES16)
+buildfiles: $(FILES100) $(FILES44) $(FILES32) $(FILES16)
 
 build/%.png: 100x100/%.png
 	cp $< $@
@@ -23,6 +24,9 @@ build/%.png: 100x100/%.png
 
 build/44x44/%.png: 100x100/%.png
 	convert -resize 44x44 $< $@
+
+build/32x32/%.png: 100x100/%.png
+	convert -resize 32x32 $< $@
 
 build/16x16/%.png: 100x100/%.png
 	convert -resize 16x16 $< $@
