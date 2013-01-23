@@ -3,10 +3,10 @@
 HOME=/var/local/nonametv
 export HOME
 
-R=/var/local/nonametv/nonametv-logos
+R=/home/beatx/projects/channel-logos/
 
 cd $R
-git pull
+git pull origin
 
 rm -rf build
 mkdir -p $R/build $R/build/44x44 $R/build/16x16
@@ -31,9 +31,9 @@ cp 16x16/*.png build/16x16/
 rsync -c --delete -r build/ upload/
 
 # sitecopy -r /var/local/nonametv/sitecopyrc --list logos.swedb.se
-sitecopy -r /var/local/nonametv/sitecopyrc --update logos.swedb.se
-rsync -av --delete $R/upload/ acheron.geijersson.com:public_html/chanlogos/
-rsync -av --delete $R/upload/ fiorina161.geijersson.com:public_html/chanlogos/
-rsync -av --delete $R/upload/ xmltv3.tvsajten.com:xmltv/chanlogos/
-
+# sitecopy -r /var/local/nonametv/sitecopyrc --update logos.swedb.se
+#rsync -rsh=ssh -av --delete $R/upload/ tvzon:/var/www/xmltv/chanlogos/
+#rsync -rsh=ssh -av --delete $R/upload/ tvzon:/home/beatx/projects/tvtabla/4.0/htdocs/gfx/chanlogos
+rsync -rsh=ssh -av --delete $R/upload/ /var/www/xmltv/chanlogos/
+rsync -rsh=ssh -av --delete $R/upload/ /home/beatx/projects/tvtabla/htdocs/gfx/chanlogos
 
