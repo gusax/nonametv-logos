@@ -38,5 +38,5 @@ upload/last_updated: build/last_updated
 	mkdir -p upload
 	rsync -c --delete -r build/ upload/
 	cp build/last_updated upload/last_updated
+	rsync -rsh=ssh -av upload/ /extrahd/tvimg/chanlogos/
 	rsync -rsh=ssh -av upload/ /var/www/xmltv/chanlogos/
-        rsync -rsh=ssh -av upload/ /home/beatx/projects/tvtabla/htdocs/gfx/chanlogos/
